@@ -8,7 +8,7 @@ from io import BytesIO
 window = tk.Tk()
 window.geometry("600x500")
 window.title("Pokedex")
-window.config(padx=10, pady=10)
+window.config(padx=10, pady=10, bg='lightblue')
 
 logo_label = tk.Label(window)
 logo_label.pack(padx=10, pady=10)
@@ -17,17 +17,17 @@ logo_label.pack(padx=10, pady=10)
 Takes an image url and uses it as the GUI title display image
 """
 def logo_title():
-    logo_url = "https://pokedex.petrovicstefan.rs/images/preview.png"
+    logo_url = "https://archives.bulbagarden.net/media/upload/4/4b/Pok%C3%A9dex_logo.png"
 
     http = urllib3.PoolManager()
     response = http.request('GET', logo_url)
 
     logo_image = PIL.Image.open(BytesIO(response.data))
 
-    image = logo_image.resize((434,200), PIL.Image.LANCZOS)
+    image = logo_image.resize((387,140), PIL.Image.LANCZOS)
 
     img = PIL.ImageTk.PhotoImage(image)
-    logo_label.config(image=img)
+    logo_label.config(image=img, bg='lightblue')
     logo_label.image = img
 
 
@@ -59,7 +59,7 @@ label       : tkinter.label
             text or image display
 
 """
-def create_label(tk_interface, text, padx, pady, font=True, fontsize=20):
+def create_label(tk_interface, text, padx, pady, font=True, fontsize=20, bg='lightblue'):
 
     # Initialise label
     if text != None:
@@ -68,22 +68,21 @@ def create_label(tk_interface, text, padx, pady, font=True, fontsize=20):
         label = tk.Label(tk_interface)
 
     if font is True:
-        label.config(font=("Comfortaa", fontsize))
+        label.config(font=("Comfortaa", fontsize), bg='lightblue')
 
     label.pack(padx=padx, pady=pady)
 
     return label
 
 # Use create label function to initialise displays for the pokedex GUI
-#title_label = create_label(window, text="Pokedex", padx=10, pady=5, font=True, fontsize=32)
 
-pokemon_image = create_label(window, text=None, padx=10, pady=5, font=False)
+pokemon_image = create_label(window, text=None, padx=10, pady=5, font=False, bg='lightblue')
 
-pokemon_information = create_label(window, text=None,padx=10, pady=5, font=True, fontsize=20)
+pokemon_information = create_label(window, text=None,padx=10, pady=5, font=True, fontsize=20, bg='lightblue')
 
-pokemon_types = create_label(window, text=None, padx=10, pady=10, font=True, fontsize=18)
+pokemon_types = create_label(window, text=None, padx=10, pady=10, font=True, fontsize=18, bg='lightblue')
 
-pokemon_height_weight = create_label(window, text=None, padx=10, pady=10,font=True, fontsize=18)
+pokemon_height_weight = create_label(window, text=None, padx=10, pady=10,font=True, fontsize=18, bg='lightblue')
 
 """
 Function finds and displays information on a pokemon based on the user input
@@ -99,7 +98,7 @@ def load_pokemon():
     image = image.resize((200, 200), PIL.Image.LANCZOS)
 
     img = PIL.ImageTk.PhotoImage(image)
-    pokemon_image.config(image=img)
+    pokemon_image.config(image=img, bg='lightblue')
     pokemon_image.image = img
 
     pokemon_information.config(text=f"{pokemon.dex} - {pokemon.name}".title())
@@ -107,7 +106,7 @@ def load_pokemon():
     pokemon_types.config(text="Type: " + " - ".join([i for i in pokemon.types]))
 
 
-label_id_name = create_label(window,text="Pokemon ID or Name", padx=10, pady=10, font=True, fontsize=18)
+label_id_name = create_label(window,text="Enter Pokémon ID or Name:", padx=10, pady=5, font=True, fontsize=16, bg='lightblue')
 
 # Create a text input area for the user
 text_id_name = tk.Text(window, height=1)
@@ -115,8 +114,11 @@ text_id_name.config(font=("Arial", 20))
 text_id_name.pack(padx=10, pady=10)
 
 # Create a button that triggers load pokemon function when pressed
-btn_load = tk.Button(window, text="Load Pokemon", command=load_pokemon)
+btn_load = tk.Button(window, text="Load Pokémon", command=load_pokemon)
 btn_load.config(font=("Comfortaa", 18))
 btn_load.pack(padx=10, pady=10)
+
+#Button aesthetics
+btn_load.config(bg='white', fg='black', activebackground='blue')
 
 window.mainloop()
