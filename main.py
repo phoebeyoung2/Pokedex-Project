@@ -10,6 +10,31 @@ window.geometry("600x500")
 window.title("Pokedex")
 window.config(padx=10, pady=10)
 
+logo_label = tk.Label(window)
+logo_label.pack(padx=10, pady=10)
+
+"""
+Takes an image url and uses it as the GUI title display image
+"""
+def logo_title():
+    logo_url = "https://pokedex.petrovicstefan.rs/images/preview.png"
+
+    http = urllib3.PoolManager()
+    response = http.request('GET', logo_url)
+
+    logo_image = PIL.Image.open(BytesIO(response.data))
+
+    image = logo_image.resize((434,200), PIL.Image.LANCZOS)
+
+    img = PIL.ImageTk.PhotoImage(image)
+    logo_label.config(image=img)
+    logo_label.image = img
+
+
+# Implement the logo title method
+logo_title()
+
+
 """
 creates a label for a Tkinter GUI window
 
@@ -50,7 +75,7 @@ def create_label(tk_interface, text, padx, pady, font=True, fontsize=20):
     return label
 
 # Use create label function to initialise displays for the pokedex GUI
-title_label = create_label(window, text="Pokedex", padx=10, pady=5, font=True, fontsize=32)
+#title_label = create_label(window, text="Pokedex", padx=10, pady=5, font=True, fontsize=32)
 
 pokemon_image = create_label(window, text=None, padx=10, pady=5, font=False)
 
