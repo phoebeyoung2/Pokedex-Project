@@ -8,6 +8,7 @@ from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 
 # Create a GUI using library tkinter
 window = tk.Tk()
+#window.geometry("500x500")
 window.title("Pokedex")
 window.config(padx=10, pady=10, bg='lightblue')
 
@@ -101,9 +102,9 @@ def plot_stats():
 
     #Plot base stats
     base_stats = {
-        "hp": pokemon.base_stats.hp,
-        "attack": pokemon.base_stats.attack,
-        "defence": pokemon.base_stats.defense,
+        "HP": pokemon.base_stats.hp,
+        "Attack": pokemon.base_stats.attack,
+        "Defence": pokemon.base_stats.defense,
         "Special Attack": pokemon.base_stats.sp_atk,
         "Special Defense": pokemon.base_stats.sp_def,
         "Speed": pokemon.base_stats.speed,
@@ -111,10 +112,11 @@ def plot_stats():
 
     fig, axes = plt.subplots(figsize=(4, 5))
     axes.bar(base_stats.keys(), base_stats.values(), color='blue')
-    axes.set_xticklabels(base_stats.keys(), rotation=90)
+    fig.subplots_adjust(bottom=0.2)
+    axes.set_xticklabels(base_stats.keys(), rotation=45)
     axes.set_xlabel('Base Stats')
     axes.set_ylabel('Value')
-    axes.set_title('Pokémon Base Stats')
+    axes.set_title('Base Stats')
     axes.set_facecolor('lightblue')
     fig.set_facecolor('lightblue')
 
@@ -148,7 +150,7 @@ def load_pokemon():
 
     pokemon_information.config(text=f"{pokemon.dex} - {pokemon.name}".title())
     pokemon_height_weight.config(text=f"Height: {pokemon.height/10} m    Weight: {pokemon.weight/10} kg ")
-    pokemon_types.config(text="Type: " + " - ".join([i for i in pokemon.types]))
+    pokemon_types.config(text="Type: " + " / ".join([i for i in pokemon.types]))
 
     plot_stats()
 
